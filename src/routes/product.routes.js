@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validateProduct from "../validators/product.validator.js";
-import { createProduct, getAllProducts } from "../controllers/Product.controller.js";
+import { createProduct, getAllProducts, getProductById } from "../controllers/Product.controller.js";
 
 const router = Router()
 
@@ -11,10 +11,18 @@ router.post(
     createProduct,
 )
 
+// Route to get all product
 router.get(
     "/",
-   validateProduct,
-   getAllProducts
+   getAllProducts,
 )
+
+// Route to get product by id
+router.get(
+    "/:id",
+    getProductById,
+)
+
+
 
 export const productRoutes = router
