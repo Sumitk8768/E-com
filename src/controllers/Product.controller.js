@@ -103,3 +103,33 @@ export const updateProduct = async (req, res) => {
     });
   }
 };
+
+// delete a product usingproduct id
+export const deleteProduct = async (req, res)=>{
+    try {
+    const { id } = req.params;
+
+    // find product by id and delete it
+    let product = await productModel.findByIdAndDelete(id)
+
+    // Return error if no matching document exists
+    if (!product)
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+
+      
+
+    return res.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+      product,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+}

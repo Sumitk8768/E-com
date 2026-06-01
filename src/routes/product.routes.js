@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validateProduct from "../validators/product.validator.js";
-import {updateProduct, createProduct, getAllProducts, getProductById } from "../controllers/Product.controller.js";
+import {deleteProduct,updateProduct, createProduct, getAllProducts, getProductById } from "../controllers/Product.controller.js";
 
 const router = Router()
 
@@ -29,5 +29,10 @@ router.patch(
     updateProduct,
 )
 
+// Routes to delete a product by id
+router.delete(
+    "/:id",
+    deleteProduct,
+)
 
 export const productRoutes = router
