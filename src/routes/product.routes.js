@@ -1,6 +1,6 @@
 import { Router } from "express";
 import validateProduct from "../validators/product.validator.js";
-import { createProduct, getAllProducts, getProductById } from "../controllers/Product.controller.js";
+import {updateProduct, createProduct, getAllProducts, getProductById } from "../controllers/Product.controller.js";
 
 const router = Router()
 
@@ -23,6 +23,11 @@ router.get(
     getProductById,
 )
 
+// Routes to update a product by id
+router.patch(
+    "/:id",
+    updateProduct,
+)
 
 
 export const productRoutes = router

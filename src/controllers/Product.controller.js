@@ -46,30 +46,60 @@ export const getAllProducts = async (req, res) => {
 };
 
 // Fetch a specific product using its unique MongoDB ID
-export const getProductById = async(req, res) => {
-    try {
-        // Extract ID from URL route parameters
-        const {id} = req.params;
+export const getProductById = async (req, res) => {
+  try {
+    // Extract ID from URL route parameters
+    const { id } = req.params;
 
-        // Search database by object identifier
-        let product = await productModel.findById(id);
+    // Search database by object identifier
+    let product = await productModel.findById(id);
 
-        // Return error if no matching document exists
-        if(!product) return res.status(404).json({
-            success:false,
-            message: "Product not found"
-        })
+    // Return error if no matching document exists
+    if (!product)
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
 
-        return res.status(200).json({
-            success:true,
-            message: "Product fetched successfully",
-            product,
-        })
-
-    } catch (error) {
+    return res.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      product,
+    });
+  } catch (error) {
     return res.status(500).json({
       success: false,
       message: error.message,
     });
-    }
-}
+  }
+};
+
+// Update a specific product using its unique MongoDB ID
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // find product by id and update it
+    let product = await productModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    // Return error if no matching document exists
+    if (!product)
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+
+    return res.status(200).json({
+      success: true,
+      message: "Product Updated successfully",
+      product,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
